@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+    
+
+</head>
+<body>
+
+    <div class="alert-box" id="alert-box">
+        <p class="content1" id="content"></p>
+        <button id="close" onclick="alertDiv('alert-box','none')">close</button>
+    </div>
+
+    <button onclick="alertDiv('alert-box','block'); displayContent('ID')">click</button>
+    <button onclick="alertDiv('alert-box','block'); displayContent('Password')">click2</button>
+    
+
+    <script>
+        function alertDiv(a, b){ //function 사용 이유: 긴 코드를 짧게 줄이고 싶을때 사용하면 됨
+            document.getElementById(a).style.display = b;
+        }
+
+        function displayContent(a){
+            document.getElementsByClassName('content1')[0].innerHTML = "Please enter your " + a + ": ";
+        }
+
+        document.getElementById('close').addEventListener('mouseover', function(){
+            alertDiv('alert-box','none')
+        });
+
+    </script>
+
+</body>
+</html>
