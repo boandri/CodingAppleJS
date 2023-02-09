@@ -82,7 +82,32 @@
     <div class="main-bg">
         <h4>Shirts on Sale</h4>
         <button class="btn btn-danger" id="login">Login</button>
+
+        <!--Q5-->
+        <p>태조 이성계가 태어난 년도는?</p>
+        <input type="text" id="answer"></input>
+        <button id="send-answer">제출</button>
     </div>
+
+    <!--Q5-->
+    <script>
+        var counter = 0;
+        document.getElementById("send-answer").addEventListener('click', function(){
+            var inputA = document.querySelector("#answer").value; //이벤트리스너 바깥에 있으면 안됨. script안 코드는 새로고침시 1회 실행되고, 이벤트리스너안 코드는 이벤트 발동시 1회 실행됨.
+            counter += 1;
+            console.log(inputA);
+            if(counter < 3){
+                if (inputA == '1335'){
+                alert('성공')
+                }else{
+                alert('땡')
+            }}else{
+                alert('명청아')
+                counter = 0;
+            }
+           
+        });
+    </script>
 
     <script>
         //클릭 횟수 홀수인 경우: Light, 짝수: Dark
