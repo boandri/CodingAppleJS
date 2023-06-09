@@ -47,11 +47,17 @@
             if (valueID == ''){
                 alert('Please type ID');
                 e.preventDefault(); //function(e)안에 e넣으면 e.preventDefault();로 서버로 전송을 막는 함수 사용가능
+            } else if(/\S@\S+\.\S/.test(valueID) == false){
+                alert('please type a correct email');
+                e.preventDefault();
             } else if(valuePassword == ''){
                 alert('Please type Password');
                 e.preventDefault();
             } else if(valuePassword.length <= 6){
                 alert('Password must be more than 6 digits');
+                e.preventDefault();
+            } else if(/[A-Z]/.test(valuePassword)== false){
+                alert('please include at least one uppercase letter');
                 e.preventDefault();
             }
         });
@@ -126,10 +132,7 @@
     </script>
     
 
-    <script>
-        // document.getElementsByClassName('navbar-toggler')[0].addEventListener('click', function(){
-        // document.querySelector('.list-group').classList.toggle('show')
-            
+    <script>         
         document.getElementsByClassName('navbar-toggler')[0].addEventListener('click', function(){
         document.querySelector('.list-group').classList.toggle('show')
         })
@@ -143,7 +146,27 @@
         })
 
     </script>
-    
+
+
+    <div class="alert alert-danger"><!--정해진 시간 뒤 사라지는 타임 세일-->
+        <span id="sec">5</span>
+        초 이내 구매시 사은품 증정!
+    </div>
+
+    <script>
+        var count = 5;
+        //setTimeout(function(){}, 5000)
+        //타임아웃은 콜백함수를 5000ms(5초)뒤에 작동시켜라
+        //셋인터벌은 콜백함수를 ~초 마다 작동시켜라
+        setInterval(function(){
+            count -= 1;
+            if(count >= 0){
+                document.getElementById("sec").innerHTML = count;
+            }else{
+                document.getElementsByClassName("alert")[0].style.display = 'none';
+            }
+        }, 1000)
+    </script>
    
     
 
