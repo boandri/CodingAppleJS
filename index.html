@@ -38,6 +38,7 @@
     </div>
 
     <script>
+        //로그인 윈도우 email validation
         //1) document.getElementById('submit-form').addEventListener('click', function(){
         //2) $('#submit-form').on('click', function(e){
         $('form').on('submit', function(e){   //form안에 submit이벤트가 발생될거기 때문임
@@ -67,7 +68,7 @@
     <!--네비게이션 바-->
     <nav class = "navbar navbar-light bg-light">
         <div class = "container-fluid">
-            <span class = "navbar-brand">Navbar</span>
+            <span class = "navbar-brand">tru Tea</span>
             <span class="badge bg-dark">Dark</span>
             <button class="navbar-toggler" type="button">
                 <span class="navbar-toggler-icon"></span>
@@ -75,7 +76,29 @@
         </div>
     </nav>
 
-    <!--리스트-->
+    <script>
+        window.addEventListener('scroll', function(){
+            var scrollY = window.scrollY//scroll 얼마나 내렸니?
+            
+            //window.scrollTo(0, 10); //강제로 고정된 위치(x,y)에 스크롤하기
+            //window.scrollBy(0,200);
+
+            //100px 내리면 로고 fontsize줄이기
+            if (scrollY >= 100){
+                $('.navbar-brand').css('font-size', '20px');
+            }
+            if(scrollY < 100){
+                $('.navbar-brand').css('font-size', '30px');
+            }
+        })
+
+        //jquery
+        // $(window).on('scroll', function(){
+        //     console.log($(window).scrollTop())
+        // })
+    </script>
+
+    <!--네비바 리스트-->
     <ul class="list-group">
         <li class="list-group-item">An item</li>
         <li class="list-group-item">A second item</li>
@@ -90,11 +113,46 @@
         <button class="btn btn-danger" id="login">Login</button>
 
         <!--Q5-->
-        <p>태조 이성계가 태어난 년도는?</p>
+        <!-- <p>태조 이성계가 태어난 년도는?</p>
         <input type="text" id="answer"></input>
-        <button id="send-answer">제출</button>
+        <button id="send-answer">제출</button> -->
     </div>
 
+    <div style="height: 500px;"></div>
+
+    <!--캐러셀 슬라이드-->
+    <div style="overflow: hidden">
+        <div class="slide-container">
+            <div class="slied-box"><img src="img/bbt_01.png"></div>
+            <div class="slied-box"><img src="img/bbt_02.png"></div>
+            <div class="slied-box"><img src="img/bbt_03.png"></div>
+        </div>   
+    </div>
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+    <button class="next">next</button>
+
+    <script>
+        $('.slide-2').on('click', function(){
+            $('.slide-container').css('transform', 'translateX(-100vw)');
+        });
+        $('.slide-3').on('click', function(){
+            $('.slide-container').css('transform', 'translateX(-200vw)');
+        });
+        $('.slide-1').on('click', function(){
+            $('.slide-container').css('transform', 'translateX(0vw)');
+        });
+
+        //다음버튼 누르면 1번사진일때 2번으로, 2번사진일때 3번으로 사진을 보여주세요
+        var picture = 1;
+
+        $('.next').on('click', function(){
+            $('.slide-container').css('transform', 'translateX(-' + picture +'00vw)');
+            picture++;
+        });
+    </script>
+    
     <!--Q5-->
     <script>
         var counter = 0;
@@ -147,11 +205,11 @@
 
     </script>
 
-
-    <div class="alert alert-danger"><!--정해진 시간 뒤 사라지는 타임 세일-->
+    <!--정해진 시간 뒤 사라지는 타임 세일-->
+    <!-- <div class="alert alert-danger">
         <span id="sec">5</span>
         초 이내 구매시 사은품 증정!
-    </div>
+    </div> -->
 
     <script>
         var count = 5;
@@ -163,9 +221,11 @@
             if(count >= 0){
                 document.getElementById("sec").innerHTML = count;
             }else{
-                document.getElementsByClassName("alert")[0].style.display = 'none';
+                document.getElementsByClassName('alert')[0].style.display = 'none';
             }
         }, 1000)
+        console.log("123123"+1)
+        console.log(1234123+2)
     </script>
    
     
