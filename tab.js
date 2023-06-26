@@ -1,9 +1,12 @@
-// 만약 1번 li 눌리면{
-//     모든 버튼에 붙은 orange class이름 제거,
-//     1번 li에 orange추가,
-//     모든 버튼에 붙은 show class이름 제거,
-//     1번 div에 show 추가}
+const tButton = $('.tab-button');
+const tContent = $('.tab-content');
+let numOfTabs = $('.tab-button').length;
 
-$('.tab-button').eq(0).on('click', function(){
-
-})
+for(let i = 0; i < numOfTabs; i++){
+    tButton.eq(i).on('click', function(){
+        tButton.removeClass('orange');
+        tButton.eq(i).addClass('orange');
+        tContent.removeClass('show');
+        tContent.eq(i).addClass('show');
+    })
+}
