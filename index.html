@@ -140,11 +140,6 @@
 <div class="main-bg">
     <h4>Shirts on Sale</h4>
     <button class="btn btn-danger" id="login">Login</button>
-
-    <!--Q5-->
-    <!-- <p>태조 이성계가 태어난 년도는?</p>
-    <input type="text" id="answer"></input>
-    <button id="send-answer">제출</button> -->
 </div>
 
 <!--Lorem 스크롤 div-->
@@ -237,11 +232,25 @@
     })
 
 </script>
+
+    <div class="container mt-3">
+        <div class="card p-3">
+            <span id="carName">상품명</span><span id="carPrice">가격</span>
+        </div>
+    </div>
+
+<script>
+    const car = {name : '소나타', price: 12000, color: 'white'}
+    document.getElementById('carName').innerHTML = car.name;
+    document.getElementById('carPrice').innerHTML = car.price;
+ 
+</script>
+
     <div class="container mt-5">
         <ul class="list">
-          <li class="tab-button">Products</li>
-          <li class="tab-button orange">Information</li>
-          <li class="tab-button">Shipping</li>
+          <li class="tab-button" data-id="0">Products</li>
+          <li class="tab-button orange" data-id="1">Information</li>
+          <li class="tab-button" data-id="2">Shipping</li>
         </ul>
         <div class="tab-content">
           <p>상품설명입니다. Product</p>
@@ -253,6 +262,8 @@
           <p>배송정보입니다. Shipping</p>
         </div>
       </div> 
-      <script src="tab.js"></script>
+
+    <script src="tab.js"></script>
+    
 </body>
 </html>
