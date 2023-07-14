@@ -13,10 +13,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </head>
 <body>
-
-    <!--Level02 variable.js 연습 링크-->
-    <!-- <script type="text/javascript" src="L02-variable.js"></script> -->
-
     <!--모달윈도우-->
     <div class="black-bg">
         <div class="white-bg">
@@ -38,6 +34,19 @@
     </div>
 
     <script>
+        //모달창 밖 클릭하면 모달창 닫기
+        $('.black-bg').on("click", function(e){
+            //e.target;// 유저가 실제로 누른것
+            //e.currentTarget; //이벤트리스너가 달린 곳
+            //e.preventDefault();//기본동작 막아줌
+            //e.stopPropagation();//이벤트버블링을 중단해줘라
+            
+            //만약 유저가 지금 누른것이 == .black-bg라면 모달창을 닫아라
+            if(e.target == document.querySelector('.black-bg')){
+            document.querySelector('.black-bg').classList.remove('show-modal')
+            }
+        })
+
         //로그인 윈도우 email validation
         //1) document.getElementById('submit-form').addEventListener('click', function(){
         //2) $('#submit-form').on('click', function(e){
@@ -97,9 +106,6 @@
             });
             
 
-  
-            
-
             //100px 내리면 로고 fontsize줄이기
             if (scrollY >= 100){
                 $('.navbar-brand').css('font-size', '20px');
@@ -130,11 +136,6 @@
     <div class="main-bg">
         <h4>Shirts on Sale</h4>
         <button class="btn btn-danger" id="login">Login</button>
-
-        <!--Q5-->
-        <!-- <p>태조 이성계가 태어난 년도는?</p>
-        <input type="text" id="answer"></input>
-        <button id="send-answer">제출</button> -->
     </div>
 
     <!--Lorem 스크롤 div-->
@@ -196,25 +197,6 @@
         });
     </script>
     
-    <!-- Q5
-    <script>
-        var counter = 0;
-        document.getElementById("send-answer").addEventListener('click', function(){
-            var inputA = document.querySelector("#answer").value; //이벤트리스너 바깥에 있으면 안됨. script안 코드는 새로고침시 1회 실행되고, 이벤트리스너안 코드는 이벤트 발동시 1회 실행됨.
-            counter += 1;
-            console.log(inputA);
-            if(counter < 3){
-                if (inputA == '1335'){
-                alert('성공')
-                }else{
-                alert('땡')
-            }}else{
-                alert('명청아')
-                counter = 0;
-            }
-        });
-    </script> -->
-
     <script>
         //클릭 횟수 홀수인 경우: Light, 짝수: Dark
         var counter = 0;
@@ -227,8 +209,6 @@
                 $('.badge').html("Dark");
             }
         })
-
-
     </script>
     
 
@@ -246,6 +226,121 @@
         })
 
     </script>
+
+    <div class="container mt-3">
+        <div class="card p-3">
+            <span id="carName">상품명</span><span id="carPrice">가격</span>
+        </div>
+    </div>
+
+    <script>
+        const car = {name : '소나타', price: [12000, 3000, 2000], color: 'white'}
+        document.querySelector('#carPrice').innerHTML = car.price[0]
+
+    </script>
+
+    <form class="container my-5 form-group">
+        <p>상품선택</p>
+        <select class="form-select mt-2 selectBox">
+            <option value="op1">모자</option>
+            <option value="op2">셔츠</option>
+            <option value="op3">바지</option>
+        </select>
+        <select class="form-select mt-2 hideSelection">
+            <!-- 여기다가 옵션에 따른 옵션들을 추가할거임 -->
+        </select>
+    </form>
+
+    
+    <script>        
+        // <방법 1: 셀렉트 박스에서 셔츠를 선택하면 사이즈 옵션을 고르는 셀렉트 박스를 숨겼다가 보여줘라>
+        // $('.hideSelection').hide();
+        // $(document).ready(function(){
+        //     $('.selectBox').change(function(){
+        //         const result = $('.selectBox option:selected').val();
+        //         if(result == 'op2'){
+        //             $('.hideSelection').show();
+        //         } else{
+        //             $('.hideSelection').hide();
+        //         }
+        //     })
+        // });
+        
+        // mock data
+        const pants = [28, 30, 32];
+        const shirts = {size1: 's', size2: 'm', size3: 'l'};
+
+        // 방법2: if 유저가 셔츠를 선택하면 hideSelection 클래스(display:none css)를 제거해주세요~로 코플은 함>
+        $('.form-select').eq(0).on('input', function(e){
+            const value = $('.form-select').eq(0).val();
+            //축약해서 아래 2가지도 가능
+            //const value = this.value;
+            //const value = e.currentTarget.value;
+            if( value == "op2"){
+                $('.form-select').eq(1).removeClass('hideSelection');
+                $(".form-select").eq(1).html('');
+                for(var key in shirts){
+                    $('.form-select').eq(1).append(`<option>${shirts[key]}</option>`)
+                }
+            }else if( value == "op3"){
+                $('.form-select').eq(1).removeClass('hideSelection');
+                $(".form-select").eq(1).html('');
+                // array 데이터타입은 forEach라는 for loop사용 가능. 콜백함수 안 파람 넣어서 값 접근가능(param1: 어레이 값들, param2: 0부터 1씩 증가하는 정수)
+                pants.forEach((aaa, bbb) => {
+                    $(".form-select").eq(1).append(`<option>${aaa}</option>`)
+                })
+
+            }else{
+                $('.form-select').eq(1).addClass('hideSelection');
+            }
+        })
+
+        
+    </script>
+
+    <div id="test">
+        <h3>반가워</h3>
+    </div>
+
+    <script>
+
+        // <방법 1 - createElement/appendChild>
+        const a = document.createElement('p');
+        a.innerHTML = 'hihii';
+        document.querySelector('#test').appendChild(a);
+
+
+        // <방법 2 - insertAdjacentHTML>
+        const template = '<p>안녕1</p>';
+        document.querySelector('#test').insertAdjacentHTML('beforeend', template);
+        document.querySelector('#test').insertAdjacentHTML('beforebegin', template);
+        //insertAdjaHTML = 문자형 HTML을 안에 추가해 달라는 함수임(param1:어느위치에 추가할지(안쪽맨밑), param2: 추가할것)
+
+
+        // <방법 3 - (jQuery) append>
+        const template1 = '<p>안녕2</p>';
+        $('#test').append(template1);
+
+    </script>
+
+    <div class="container mt-5">
+        <ul class="list">
+        <li class="tab-button" data-id="0">Products</li>
+        <li class="tab-button orange" data-id="1">Information</li>
+        <li class="tab-button" data-id="2">Shipping</li>
+        </ul>
+        <div class="tab-content">
+        <p>상품설명입니다. Product</p>
+        </div>
+        <div class="tab-content show">
+        <p>스펙설명입니다. Information</p>
+        </div>
+        <div class="tab-content">
+        <p>배송정보입니다. Shipping</p>
+        </div>
+    </div> 
+
+    <script src="tab.js"></script>
 
     <!--정해진 시간 뒤 사라지는 타임 세일-->
     <!-- <div class="alert alert-danger">

@@ -45,7 +45,6 @@
     if(e.target == document.querySelector('.black-bg')){
       document.querySelector('.black-bg').classList.remove('show-modal')
     }
-    
   })
 
     //로그인 윈도우 email validation
@@ -105,9 +104,6 @@
 
             $('.scroll').css('width', (scrolled + '%'));
         });
-        
-
-
         
 
         //100px 내리면 로고 fontsize줄이기
@@ -213,8 +209,6 @@
             $('.badge').html("Dark");
         }
     })
-
-
 </script>
 
 
@@ -232,38 +226,6 @@
     })
 
 </script>
-
-    <div class="container mt-3">
-        <div class="card p-3">
-            <span id="carName">상품명</span><span id="carPrice">가격</span>
-        </div>
-    </div>
-
-<script>
-    const car = {name : '소나타', price: 12000, color: 'white'}
-    document.getElementById('carName').innerHTML = car.name;
-    document.getElementById('carPrice').innerHTML = car.price;
- 
-</script>
-
-    <div class="container mt-5">
-        <ul class="list">
-          <li class="tab-button" data-id="0">Products</li>
-          <li class="tab-button orange" data-id="1">Information</li>
-          <li class="tab-button" data-id="2">Shipping</li>
-        </ul>
-        <div class="tab-content">
-          <p>상품설명입니다. Product</p>
-        </div>
-        <div class="tab-content show">
-          <p>스펙설명입니다. Information</p>
-        </div>
-        <div class="tab-content">
-          <p>배송정보입니다. Shipping</p>
-        </div>
-      </div> 
-
-    <script src="tab.js"></script>
     
 </body>
 </html>

@@ -139,3 +139,7 @@ ul.list {
   .show {
     display: block;
   }
+
+  .hideSelection{
+    display: none;
+  }
