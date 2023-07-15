@@ -13,7 +13,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div class="card-group container">
+        <!-- 기존 카드 html -->
+        <!-- <div class="card-group container">
             <div class="card">
               <img src="https://via.placeholder.com/600">
               <div class="card-body">
@@ -38,20 +39,75 @@
                 <button class="btn btn-danger">주문하기</button>
               </div>
             </div>
-          </div>
-          
-          <script>
+        </div> -->
+        
+
+
+        <!-- 새로운 card -->
+        
+
+        <span class="cardLayout"></span>
+
+        <script>
+            //mock-data
             var products = [
               { id : 0, price : 70000, title : 'Blossom Dress' },
               { id : 1, price : 50000, title : 'Springfield Shirt' },
               { id : 2, price : 60000, title : 'Black Monastery' }
             ];
 
-            products.forEach(function(val, i){
-                $('.card-body h5').eq(i).html(products[i].title)
-                $('.card-body p').eq(i).html(`가격: ${products[i].price}`)
-            })
+            // 새로운 card 레이아웃 JS로 생성하기
+            for(var i = 0; i < 3; i++){
+                $('.cardLayout').append(`<div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <img src="https://via.placeholder.com/600" class="w-100">
+                        <h5>Card title</h5>
+                        <p>가격 : 70000</p>
+                    </div>
+                </div>`)
+            }
             
-          </script> 
+            // 새로운 데이터 바인딩 function
+            products.forEach(function(data, i){
+                $('.col-sm-4 h5').eq(i).html(products[i].title);
+                $('.col-sm-4 p').eq(i).html(`가격: ${products[i].price}`);
+            })
+        </script>
+
+        <script>
+            // 기존 데이터 바인딩 function
+            // products.forEach(function(val, i){
+            //     $('.card-body h5').eq(i).html(products[i].title)
+            //     $('.card-body p').eq(i).html(`가격: ${products[i].price}`)
+            // })
+        </script>
+
+
+        <script> 
+            // ajax로 GET 요청하는법 - 1. jQuery 로
+                // $.get('https://codingapple1.github.io/price.json').done(function(data){
+                //     console.log(data.price);
+                // }).fail(function(){
+                //     console.log('ajax 요청 실패했을때 나옴')
+                // })
+
+
+            // ajax로 GET 요청하는법 - 2. 쌩JS로
+                // fetch('https://codingapple1.github.io/price.json')
+                //     .then(res => res.json()) // 원래는 데이터가 JSON형식의 string으로 오지만, object로 바꾸고싶기때문에 적어줌. 필요없으면 안적어도됨. (jQuery $.get()은 JSON => object로 자동변환해줌 )
+                //     .then(data => {
+                //         console.log(data)
+                //     }).catch(error => {
+                //         console.log('error')
+                //     })
+            
+            // ajax로 POST요청하는법: 대충 이런식으로 param2에 보낼 데이터들을 넣어줌
+                // $.post('https://codingapple1.github.io/hello.txt', {name: 'seowoo'}).done(function(data){
+                //     console.log(data);
+                // })
+
+
+        </script> 
     </body>
 </html>
