@@ -1,0 +1,26 @@
+<head>
+</head>
+<body>
+    <script>
+        avg = [1, 98, 39, 73, 29, 80, 64, 55]
+        testResult = 54.875
+
+        function cal(avg){
+            i = 0;
+            avarage = 0;
+            avg.forEach((element) => {
+                avarage = (i += element) / avg.length;
+            });
+            if (avarage < testResult){
+                result = testResult - avarage;
+                console.log(`평균보다 ${result}점 올랐네요 축하!`)
+            }else if(avarage == testResult){
+                console.log(`변화없음!`)
+            }else{
+                result = avarage - testResult;
+                console.log(`평균보다 ${result}점 하락함`)
+            }
+        }
+        cal(avg, testResult)
+    </script>
+</body>
