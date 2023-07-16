@@ -44,9 +44,17 @@
 
 
         <!-- 새로운 card -->
-        
+        <div class="container">
+          <div class="row">
+            <span class="cardLayout"></span>
+          </div>
+        </div>
 
-        <span class="cardLayout"></span>
+        <div class="container">
+          <button class="btn btn-danger" id="more">더보기</button>
+        </div>    
+
+        
 
         <script>
             //mock-data
@@ -58,22 +66,55 @@
 
             // 새로운 card 레이아웃 JS로 생성하기
             for(var i = 0; i < 3; i++){
-                $('.cardLayout').append(`<div class="container">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <img src="https://via.placeholder.com/600" class="w-100">
-                        <h5>Card title</h5>
-                        <p>가격 : 70000</p>
-                    </div>
-                </div>`)
+                $('.cardLayout').append(
+                  `<div class="col-sm-4">
+                    <img src="https://via.placeholder.com/600" class="w-100">
+                    <h5>Card title</h5>
+                    <p>가격 : 70000</p>
+                  </div>`)
             }
             
             // 새로운 데이터 바인딩 function
             products.forEach(function(data, i){
-                $('.col-sm-4 h5').eq(i).html(products[i].title);
-                $('.col-sm-4 p').eq(i).html(`가격: ${products[i].price}`);
+                $('.col-sm-4 h5').eq(i).html(data.title);
+                $('.col-sm-4 p').eq(i).html(`가격: ${data.price}`);
             })
         </script>
+
+
+        <script>
+          
+          
+
+          //더보기 버튼 누르면 새로운 카드 3개 더 추가
+          document.querySelector('#more').addEventListener('click', function(){
+
+            // 서버에서 ajax로 새로운 데이터 3개 더 가져오기
+            $.get('https://codingapple1.github.io/js/more1.json')
+            .done(function(data){
+              data.forEach((a, i)=>{
+                const template = 
+                  `<div class="col-sm-4">
+                    <img src="https://via.placeholder.com/600" class="w-100">
+                    <h5>${a.title}</h5>
+                    <p>가격 : ${a.price}</p>
+                  </div>`;
+
+                $('.cardLayout').append(template);
+              })
+              
+            })
+            .fail(function(err){
+              console.log(err)
+            });
+            
+          })
+          
+          
+        </script>
+
+
+
 
         <script>
             // 기존 데이터 바인딩 function
@@ -85,7 +126,7 @@
 
 
         <script> 
-            // ajax로 GET 요청하는법 - 1. jQuery 로
+            // 1-1. jQuery 로 ajax로 GET 요청하는법
                 // $.get('https://codingapple1.github.io/price.json').done(function(data){
                 //     console.log(data.price);
                 // }).fail(function(){
@@ -93,7 +134,7 @@
                 // })
 
 
-            // ajax로 GET 요청하는법 - 2. 쌩JS로
+            // 1-2. 쌩JS로 ajax로 GET 요청하는법
                 // fetch('https://codingapple1.github.io/price.json')
                 //     .then(res => res.json()) // 원래는 데이터가 JSON형식의 string으로 오지만, object로 바꾸고싶기때문에 적어줌. 필요없으면 안적어도됨. (jQuery $.get()은 JSON => object로 자동변환해줌 )
                 //     .then(data => {
@@ -102,7 +143,7 @@
                 //         console.log('error')
                 //     })
             
-            // ajax로 POST요청하는법: 대충 이런식으로 param2에 보낼 데이터들을 넣어줌
+            // 2-1. jQuery 로 ajax로 POST요청하는법: 대충 이런식으로 param2에 보낼 데이터들을 넣어줌
                 // $.post('https://codingapple1.github.io/hello.txt', {name: 'seowoo'}).done(function(data){
                 //     console.log(data);
                 // })
