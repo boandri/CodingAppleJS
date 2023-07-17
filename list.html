@@ -35,6 +35,11 @@
 
         <div class="container">
           <button class="btn btn-danger" id="more" >더보기</button>
+          <button class="btn btn-danger" id="price">가격순정렬</button>
+          <!-- 상품명 다나가순 정렬 버튼 만들어 활성화시켜보기 -->
+          <button class="btn btn-danger" id="alphabet">상품명정렬</button>
+          <!-- 6만원 이하 상품만 보여주는 버튼 만들어 활성화 -->
+          <button class="btn btn-danger" id="less60000">6만원이하</button>
         </div>    
 
         
@@ -47,6 +52,8 @@
               { id : 2, price : 60000, title : 'Black Monastery' }
             ];
 
+            
+            
             // // 새로운 card 레이아웃 JS로 생성하기
             // for(var i = 0; i < 3; i++){
             //     $('.cardLayout').append(
@@ -63,6 +70,7 @@
             //     $('.col-sm-4 p').eq(i).html(`가격: ${data.price}`);
             // })
 
+            
             // 위 2가지 합침 = 카드생성해서 데이터 바인딩하는 함수
             function newCardWData(data){
               data.forEach((a,i)=>{
@@ -75,7 +83,6 @@
                 $('.cardLayout').append(template);
               })
             }
-
             newCardWData(products);
         </script>
 
@@ -107,7 +114,52 @@
               $('#more').addClass('hidMore')
             }
           })
-          
+
+
+
+
+          // 가격순정렬 누르면 가격 순으로 상품 정렬
+          $('#price').on('click', ()=>{
+            //데이터 가겨순 sort()
+            products.sort((a,b)=>{
+              return a.price - b.price;
+            })
+            //내용 지우고 다시 띄우기
+            $('.cardLayout').html("");
+            newCardWData(products);
+          })
+
+
+
+
+          // 상품명정렬 버튼 클릭하면 이름순 정렬
+          $('#alphabet').on('click', ()=>{
+              products.sort((a,b)=>{
+                if(a.title > b.title){
+                  return -1;
+                }else if(a.title < b.title){
+                  return 1;
+                }else{
+                  return 0;
+                }
+              })
+              // 카드 초기화 하고 새로 만들어서 데이터 바인딩 하기
+              $('.cardLayout').html('');
+              newCardWData(products);
+            })
+
+
+
+            // 6만원이하 버튼 클릭하면 6만웡 이하 상품만 보여주기
+            $('#less60000').on('click', ()=>{
+              let lessThan6 = products.filter((a)=>{
+                return a.price <= 60000
+              })
+              console.log(lessThan6);
+              // 카드 초기화 후 재생성 및 데이터 바인딩
+              $('.cardLayout').html('');
+              newCardWData(lessThan6);
+            })
           
         </script>
 
@@ -145,6 +197,29 @@
                 // $.post('https://codingapple1.github.io/hello.txt', {name: 'seowoo'}).done(function(data){
                 //     console.log(data);
                 // })
+
+
+
+
+           // + 추가) array 자료 정렬하는법 - .sort()
+           var arr1 = [3, 20, 5, 7, 45, 9, 2];
+           arr1.sort((a,b)=>{
+            //a,b는 array 값들 예를 들면 1, 30
+            // return 오른쪽이 양수(+)면 a를 오른쪽으로 보냄
+            // return 오른쪽이 음수(-)면 b를 오른쪽으로 보냄
+            return a-b; // 즉 이렇게 쓰면 오름차순으로 바뀜(그냥 sort()만 쓰면 문자열을 순서대로 정렬)
+           });
+
+           // ++ 추가) array 자료 원하는것만 필터하려면 - .filter()
+           // sort()는 옛날문법이며 원본을 변형시킴, 반면 filter()는 최신 문법이기고 원본 변형 안시킴. 따라서 새로운 변수로 저장해서 써야함
+           var filted = arr1.filter((a)=>{
+            return a <= 5; // return 오른쪽에 조건식 쓰면 됨
+           });
+           
+           // +++ 추가) array 자료 전부 변형하는법 - .map()
+           var modified = arr1.map((a)=>{
+            return a * 10000;
+           })
 
 
         </script> 
