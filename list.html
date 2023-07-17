@@ -22,28 +22,11 @@
                 <p>가격 : 70000</p>
                 <button class="btn btn-danger">주문하기</button>
               </div>
-            </div>
-            <div class="card">
-              <img src="https://via.placeholder.com/600">
-              <div class="card-body">
-                <h5>Card title</h5>
-                <p>가격 : 70000</p>
-                <button class="btn btn-danger">주문하기</button>
-              </div>
-            </div>
-            <div class="card">
-              <img src="https://via.placeholder.com/600">
-              <div class="card-body">
-                <h5>Card title</h5>
-                <p>가격 : 70000</p>
-                <button class="btn btn-danger">주문하기</button>
-              </div>
-            </div>
-        </div> -->
+            </div>-->
         
 
 
-        <!-- 새로운 card -->
+        <!-- 새로운 card 들어갈 container -->
         <div class="container">
           <div class="row">
             <span class="cardLayout"></span>
@@ -51,7 +34,7 @@
         </div>
 
         <div class="container">
-          <button class="btn btn-danger" id="more">더보기</button>
+          <button class="btn btn-danger" id="more" >더보기</button>
         </div>    
 
         
@@ -64,50 +47,65 @@
               { id : 2, price : 60000, title : 'Black Monastery' }
             ];
 
-            // 새로운 card 레이아웃 JS로 생성하기
-            for(var i = 0; i < 3; i++){
-                $('.cardLayout').append(
-                  `<div class="col-sm-4">
-                    <img src="https://via.placeholder.com/600" class="w-100">
-                    <h5>Card title</h5>
-                    <p>가격 : 70000</p>
-                  </div>`)
-            }
+            // // 새로운 card 레이아웃 JS로 생성하기
+            // for(var i = 0; i < 3; i++){
+            //     $('.cardLayout').append(
+            //       `<div class="col-sm-4">
+            //         <img src="https://via.placeholder.com/600" class="w-100">
+            //         <h5>Card title</h5>
+            //         <p>가격 : 70000</p>
+            //       </div>`)
+            // }
             
-            // 새로운 데이터 바인딩 function
-            products.forEach(function(data, i){
-                $('.col-sm-4 h5').eq(i).html(data.title);
-                $('.col-sm-4 p').eq(i).html(`가격: ${data.price}`);
-            })
-        </script>
+            // // 새로운 데이터 바인딩 function
+            // products.forEach(function(data, i){
+            //     $('.col-sm-4 h5').eq(i).html(data.title);
+            //     $('.col-sm-4 p').eq(i).html(`가격: ${data.price}`);
+            // })
 
-
-        <script>
-          
-          
-
-          //더보기 버튼 누르면 새로운 카드 3개 더 추가
-          document.querySelector('#more').addEventListener('click', function(){
-
-            // 서버에서 ajax로 새로운 데이터 3개 더 가져오기
-            $.get('https://codingapple1.github.io/js/more1.json')
-            .done(function(data){
-              data.forEach((a, i)=>{
+            // 위 2가지 합침 = 카드생성해서 데이터 바인딩하는 함수
+            function newCardWData(data){
+              data.forEach((a,i)=>{
                 const template = 
                   `<div class="col-sm-4">
                     <img src="https://via.placeholder.com/600" class="w-100">
                     <h5>${a.title}</h5>
                     <p>가격 : ${a.price}</p>
-                  </div>`;
-
+                  </div>`
                 $('.cardLayout').append(template);
               })
-              
-            })
-            .fail(function(err){
-              console.log(err)
-            });
-            
+            }
+
+            newCardWData(products);
+        </script>
+
+
+        <script>
+          
+          //버튼 몇번 눌렀눈지 count 
+          let count = 0;
+
+          //더보기 버튼 누르면 새로운 카드 3개 더 추가
+          document.querySelector('#more').addEventListener('click', function(){
+            if(count == 0){
+              // 서버에서 ajax로 새로운 데이터 3개 더 가져오기
+              $.get('https://codingapple1.github.io/js/more1.json')
+              .done(function(data){
+                newCardWData(data);
+              })
+              .fail(function(err){
+                  console.log(err)
+              });
+              count++;
+            } else if(count == 1){
+              $.get('https://codingapple1.github.io/js/more2.json')
+              .done((data)=>{
+                newCardWData(data);
+              }).fail((err)=>{
+                console.log(err);
+              })
+              $('#more').addClass('hidMore')
+            }
           })
           
           

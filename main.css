@@ -143,3 +143,7 @@ ul.list {
   .hideSelection{
     display: none;
   }
+
+  .hidMore{
+    display: none;
+  }
