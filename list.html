@@ -51,9 +51,18 @@
               { id : 1, price : 50000, title : 'Springfield Shirt' },
               { id : 2, price : 60000, title : 'Black Monastery' }
             ];
+          //로컬스토리지에 ('key', 'value')로 저장
+            // localStorage.setItem('loves Seowoo', 'true'); 
+            // localStorage.getItem('loves Seowoo'); //로컬스토리지에서 key값으로 가져오기
+            // localStorage.removeItem('loves Seowoo'); //로컬스토리지에서 key값으로 지우기
+            
+            // const arr2 = [1,2,3,5];
+            // var arrJSON = JSON.stringify(arr2); // array저장하고싶을때 JSON형식으로 저장하기
+            // localStorage.setItem('num', arrJSON);
+            // var arrStored = localStorage.getItem('num');
+            // var arrParse = JSON.parse(arrStored); // JSON array형태로 바꾸고싶을때
+        
 
-            
-            
             // // 새로운 card 레이아웃 JS로 생성하기
             // for(var i = 0; i < 3; i++){
             //     $('.cardLayout').append(
@@ -79,10 +88,11 @@
                     <img src="https://via.placeholder.com/600" class="w-100">
                     <h5>${a.title}</h5>
                     <p>가격 : ${a.price}</p>
+                    <button class="buy btn btn-primary">구매</button>
                   </div>`
                 $('.cardLayout').append(template);
-              })
-            }
+              });
+            };
             newCardWData(products);
         </script>
 
@@ -101,7 +111,7 @@
                 newCardWData(data);
               })
               .fail(function(err){
-                  console.log(err)
+                  console.log(err);
               });
               count++;
             } else if(count == 1){
@@ -110,30 +120,28 @@
                 newCardWData(data);
               }).fail((err)=>{
                 console.log(err);
-              })
-              $('#more').addClass('hidMore')
+              });
+              $('#more').addClass('hidMore');
             }
-          })
+          });
 
 
 
 
           // 가격순정렬 누르면 가격 순으로 상품 정렬
-          $('#price').on('click', ()=>{
+          $('#price').click(()=>{
             //데이터 가겨순 sort()
-            products.sort((a,b)=>{
-              return a.price - b.price;
-            })
+            products.sort((a,b)=> (a.price - b.price));
             //내용 지우고 다시 띄우기
             $('.cardLayout').html("");
             newCardWData(products);
-          })
+          });
 
 
 
 
           // 상품명정렬 버튼 클릭하면 이름순 정렬
-          $('#alphabet').on('click', ()=>{
+          $('#alphabet').click(()=>{
               products.sort((a,b)=>{
                 if(a.title > b.title){
                   return -1;
@@ -141,25 +149,40 @@
                   return 1;
                 }else{
                   return 0;
-                }
-              })
+                };
+              });
               // 카드 초기화 하고 새로 만들어서 데이터 바인딩 하기
               $('.cardLayout').html('');
               newCardWData(products);
-            })
+            });
 
 
 
             // 6만원이하 버튼 클릭하면 6만웡 이하 상품만 보여주기
             $('#less60000').on('click', ()=>{
-              let lessThan6 = products.filter((a)=>{
-                return a.price <= 60000
-              })
+              let lessThan6 = products.filter( a => a.price <= 60000); // arrow function + 리턴 1줄이면 {return } 생략해서 이렇게 표기할 수 있음
               console.log(lessThan6);
               // 카드 초기화 후 재생성 및 데이터 바인딩
               $('.cardLayout').html('');
               newCardWData(lessThan6);
+            });
+
+
+
+            // 구매 버튼 누르면 localStorage array에 key 'cart'로 저장하기
+            $('.buy').click((e)=>{
+              let aa = $(e.target).siblings('h5').text(); //혹은 .html();로 태그 안 내용 가져옴
+
+              if(localStorage.getItem('cart') != null){
+                let cart = [aa];
+                localStorage.setItem('cart', JSON.stringify(cart));
+              }else{
+                let parsedCart = JSON.parse(localStorage.cart); // == localStorage.getItem('cart')
+                parsedCart.push(aa)
+                localStorage.setItem('cart', JSON.stringify(parsedCart));
+              }
             })
+            
           
         </script>
 
@@ -205,8 +228,8 @@
            var arr1 = [3, 20, 5, 7, 45, 9, 2];
            arr1.sort((a,b)=>{
             //a,b는 array 값들 예를 들면 1, 30
-            // return 오른쪽이 양수(+)면 a를 오른쪽으로 보냄
-            // return 오른쪽이 음수(-)면 b를 오른쪽으로 보냄
+            // return 양수(+)면 a를 오른쪽으로 보냄
+            // return 음수(-)면 b를 오른쪽으로 보냄
             return a-b; // 즉 이렇게 쓰면 오름차순으로 바뀜(그냥 sort()만 쓰면 문자열을 순서대로 정렬)
            });
 
@@ -219,7 +242,7 @@
            // +++ 추가) array 자료 전부 변형하는법 - .map()
            var modified = arr1.map((a)=>{
             return a * 10000;
-           })
+           });
 
 
         </script> 
