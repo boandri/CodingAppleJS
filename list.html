@@ -158,7 +158,7 @@
 
 
 
-            // 6만원이하 버튼 클릭하면 6만웡 이하 상품만 보여주기
+            // 6만원이하 버튼 클릭하면 6만원 이하 상품만 보여주기
             $('#less60000').on('click', ()=>{
               let lessThan6 = products.filter( a => a.price <= 60000); // arrow function + 리턴 1줄이면 {return } 생략해서 이렇게 표기할 수 있음
               console.log(lessThan6);
@@ -171,19 +171,23 @@
 
             // 구매 버튼 누르면 localStorage array에 key 'cart'로 저장하기
             $('.buy').click((e)=>{
-              let aa = $(e.target).siblings('h5').text(); //혹은 .html();로 태그 안 내용 가져옴
+              let h5 = $(e.target).siblings('h5').text();//혹은 .html();로 태그 안 내용 가져옴
 
-              if(localStorage.getItem('cart') != null){
-                let cart = [aa];
+              if(localStorage.getItem('cart') == null){
+                let cart = [{title: h5, num: 1}];
                 localStorage.setItem('cart', JSON.stringify(cart));
               }else{
-                let parsedCart = JSON.parse(localStorage.cart); // == localStorage.getItem('cart')
-                parsedCart.push(aa)
-                localStorage.setItem('cart', JSON.stringify(parsedCart));
-              }
-            })
-            
-          
+                let parsedCart = JSON.parse(localStorage.cart);
+                let i = parsedCart.findIndex(e => e.title == h5)
+                if(i != -1){
+                  parsedCart[i].num++;
+                  localStorage.setItem('cart', JSON.stringify(parsedCart));
+                }else{
+                  parsedCart.push({title: h5, num: 1});
+                  localStorage.setItem('cart', JSON.stringify(parsedCart));
+                }
+              }              
+            });
         </script>
 
 
