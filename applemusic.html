@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Card Design</title>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+        crossorigin="anonymous"></script> 
+        <link href="main.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="card-background">
+            <div class="card-box">
+                <img src="img/card1.png">
+            </div>
+            <div class="card-box">
+                <img src="img/card2.png">
+            </div>
+            <div class="card-box">
+                <img src="img/card3.png">
+            </div>
+        </div>
+
+        <script>
+            $(window).scroll(function(){ // 윈도우(뷰포트)가 스크롤될때마다 함수 실행해줘
+                let 높이 = $(window).scrollTop(); // opacity lvl: 850:1, 1080: 0
+                console.log(높이);
+
+                y = (-1/230) * 높이 + (1080/230);
+                z = (-1/2300) * 높이 + 315/230;
+
+                // 높이가 850 ~ 1080일때: 첫째카드의 크기를 1 -> 0.9로 서서히 바꿔줘
+                if(높이 < 855){
+                    $('.card-box').eq(0).css('transform', `scale(1)`) 
+                }else{
+                    $('.card-box').eq(0).css('transform', `scale(${z})`)
+                }
+
+                // 높이가 850 ~ 1080일때: 첫째 카드의 opacity를 1->0 으로 서서히 바꿔줘
+                $('.card-box').eq(0).css('opacity', y);
+                
+                
+            })
+        </script>
+    </body>
+</html>

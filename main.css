@@ -147,3 +147,42 @@ ul.list {
   .hidMore{
     display: none;
   }
+
+  .grey{
+    background-color: lightgrey;
+    height: 2000px;
+    margin-top: 500px;
+  }
+
+  .img{
+    float: right;
+    width: 400px;
+    position: sticky; /*position:fixed랑 유사함, 부모태그가 끝나기 전까지 stick 함*/
+    top: 100px;
+  }
+  
+  .txt{
+    float: left;
+    width: 300px;
+  }
+
+  .card-background{
+    height: 3000px;
+    margin-top: 800px;
+    margin-bottom: 1600px;
+    background-color: aquamarine;
+  }
+
+  .card-box img{
+    display: block;
+    margin: auto;
+    max-width: 80%;
+    margin-top: 200px;
+  }
+
+  .card-box{
+    position: sticky;
+    top: 200px;
+    transition: all 0.2s;
+    
+  }
